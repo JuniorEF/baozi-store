@@ -1,43 +1,145 @@
-# Baozi Store — API REST (UNINTER)
+# Baozi Store — API REST
 
-**Aluno:** Edegar Foss Junior — **RU:** 5401581  
-**Disciplina:** Desenvolvimento Web Back-End
+**Projeto acadêmico de Desenvolvimento Web Back-End — 2026**
 
-## Tecnologias
-Java 17, Spring Boot 3.5.7, Spring Web, Spring Data JPA, Hibernate e banco relacional H2 em arquivo.
+**Aluno:** Edegar Foss Junior  
+**RU:** 5401581
 
-## Executar
-1. Instale JDK 17+ e Maven 3.9+.
-2. Na pasta do projeto, execute `mvn spring-boot:run`.
-3. API: `http://localhost:8080`.
-4. Console H2: `http://localhost:8080/h2-console`  
-   JDBC URL: `jdbc:h2:file:./data/baozistore` | usuário `sa` | senha em branco.
+## Sobre o projeto
 
-O banco é persistido na pasta `data/` e as tabelas são criadas/atualizadas pelo JPA.
+A Baozi Store é uma API REST desenvolvida em Java com Spring Boot para gerenciar produtos, clientes e pedidos de uma loja fictícia especializada em Baozi.
 
-## Endpoints
-Para cada recurso (`clientes`, `produtos`, `pedidos`):
-- `POST /api/{recurso}` — criar (201)
-- `GET /api/{recurso}` — listar (200)
-- `GET /api/{recurso}/{id}` — consultar por ID (200; 404 se ausente)
-- `PUT /api/{recurso}/{id}` — atualizar (200)
-- `DELETE /api/{recurso}/{id}` — excluir (204; 404 se ausente)
+A aplicação permite cadastrar, consultar, atualizar e excluir registros, utilizando JSON para comunicação e banco de dados H2 para persistência.
 
-### JSON de exemplo — sequência recomendada no Postman
-**Cliente** `POST /api/clientes`
-```json
-{"nome":"Edegar Foss Junior 5401581","clienteDesde":"2026-11-18"}
-```
-**Produto** `POST /api/produtos`
-```json
-{"nome":"Baozi tradicional","preco":8.50,"estoque":true}
-```
-**Pedido** `POST /api/pedidos` (use os IDs retornados nas duas primeiras respostas)
-```json
-{"clienteId":1,"produtoId":1,"quantidade":4}
+## Tecnologias utilizadas
+
+- Java 17
+- Spring Boot 3.5.7
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- Banco de dados H2
+- Maven
+- Postman
+
+## Configuração e execução
+
+1. Instale o Java 17.
+2. Abra o terminal na pasta do projeto.
+3. Execute:
+
+```bash
+mvn spring-boot:run
 ```
 
-## Postman
-Importe `postman/Baozi-Store.postman_collection.json`. A coleção contém requisições para POST, GET geral, GET por ID, PUT e DELETE. Execute primeiro os POST e salve os IDs retornados nas variáveis `clienteId`, `produtoId` e `pedidoId` da coleção.
+A aplicação será iniciada na porta **8081**.
 
-**Importante sobre a entrega:** a atividade exige capturas reais do Postman (criação de cada entidade, listagem geral, consulta por ID e exclusão). Elas não podem ser simuladas com segurança neste ambiente. Execute a API, faça as requisições e insira as capturas no relatório PDF antes de entregar.
+Endereço-base:
+
+```text
+http://localhost:8081
+```
+
+Console do banco H2:
+
+```text
+http://localhost:8081/h2-console
+```
+
+Configuração JDBC:
+
+```text
+jdbc:h2:file:./data/baozistore
+```
+
+## Endpoints da API
+
+### Produtos
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/api/produtos` | Cadastrar produto |
+| GET | `/api/produtos` | Listar produtos |
+| GET | `/api/produtos/{id}` | Consultar produto |
+| PUT | `/api/produtos/{id}` | Atualizar produto |
+| DELETE | `/api/produtos/{id}` | Excluir produto |
+
+Exemplo de cadastro:
+
+```json
+{
+  "nome": "Baozi Tradicional",
+  "preco": 15.90,
+  "estoque": 50
+}
+```
+
+### Clientes
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/api/clientes` | Cadastrar cliente |
+| GET | `/api/clientes` | Listar clientes |
+| GET | `/api/clientes/{id}` | Consultar cliente |
+| PUT | `/api/clientes/{id}` | Atualizar cliente |
+| DELETE | `/api/clientes/{id}` | Excluir cliente |
+
+Exemplo de cadastro:
+
+```json
+{
+  "nome": "Edegar Foss Junior",
+  "clienteDesde": "2026-11-18"
+}
+```
+
+### Pedidos
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| POST | `/api/pedidos` | Cadastrar pedido |
+| GET | `/api/pedidos` | Listar pedidos |
+| GET | `/api/pedidos/{id}` | Consultar pedido |
+| PUT | `/api/pedidos/{id}` | Atualizar pedido |
+| DELETE | `/api/pedidos/{id}` | Excluir pedido |
+
+Exemplo de cadastro:
+
+```json
+{
+  "clienteId": 2,
+  "produtoId": 37,
+  "quantidade": 3
+}
+```
+
+## Estrutura do projeto
+
+```text
+baozi-store/
+├── src/
+│   └── main/
+│       ├── java/br/com/baozistore/
+│       │   ├── controller/
+│       │   ├── exception/
+│       │   ├── model/
+│       │   └── repository/
+│       └── resources/
+│           └── application.properties
+├── postman/
+├── Evidencias_Postman/
+├── pom.xml
+└── README.md
+```
+
+## Testes
+
+Os endpoints foram testados utilizando o Postman, incluindo operações de cadastro, consulta, atualização e exclusão.
+
+As capturas de tela dos testes estão disponíveis na pasta `Evidencias_Postman`.
+
+## Autor
+
+**Edegar Foss Junior — RU 5401581**
+
+Projeto acadêmico desenvolvido para a disciplina de Desenvolvimento Web Back-End.
